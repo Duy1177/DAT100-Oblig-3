@@ -5,46 +5,67 @@ import no.hvl.dat100.oppgave1.*;
 
 public class Blogg {
 
-	// TODO: objektvariable 
+	// TODO: objektvariable
+    private Innlegg[] innleggTabell;
+    private int nesteLedig;
+
 
 	public Blogg() {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+        innleggTabell = new Innlegg[20];
+        nesteLedig = 0;
 	}
 
 	public Blogg(int lengde) {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
-	}
+        innleggTabell = new Innlegg[lengde];
+        nesteLedig = 0;
+    }
 
 	public int getAntall() {
-		throw new UnsupportedOperationException(TODO.method());
+        return nesteLedig;
 	}
 	
 	public Innlegg[] getSamling() {
-		throw new UnsupportedOperationException(TODO.method());
-
+        return innleggTabell;
 	}
 	
 	public int finnInnlegg(Innlegg innlegg) {
-
-		throw new UnsupportedOperationException(TODO.method());
-	}
+        for(int i = 0; i < nesteLedig; i++){
+            if (innleggTabell[i].erLik(innlegg)){
+                return i;
+            }
+        }
+        return -1;
+    }
 
 	public boolean finnes(Innlegg innlegg) {
-		throw new UnsupportedOperationException(TODO.method());
-	}
+        return finnInnlegg(innlegg) != -1;
+    }
 
 	public boolean ledigPlass() {
-		throw new UnsupportedOperationException(TODO.method());
-
+        for (int i = 0; i < innleggTabell.length; i++){
+            if (innleggTabell[i] == null){
+                return true;
+            }
+        }
+        return false;
 	}
 	
 	public boolean leggTil(Innlegg innlegg) {
-
-		throw new UnsupportedOperationException(TODO.method());
+        if (!finnes(innlegg) && ledigPlass()){
+            innleggTabell[nesteLedig] = innlegg;
+            nesteLedig += 1;
+            return true;
+        }
+        return false;
 	}
 	
 	public String toString() {
-		throw new UnsupportedOperationException(TODO.method());
+        String streng = "";
+        for (int i = 0; i < nesteLedig; i++){
+            streng += innleggTabell[i].toString();
+        }
+
+        return getAntall() + "\n" + streng;
 	}
 
 	// valgfrie oppgaver nedenfor
